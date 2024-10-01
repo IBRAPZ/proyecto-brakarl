@@ -4,18 +4,20 @@
     <link rel="icon" href="imagenes/icono.jpeg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto intgrador</title>
+    <title>Proyecto Integrador</title>
     <style>
         body {
             font-family: 'Times New Roman', Times, serif, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-image: url(imagenes/posible\ fondo\ 2.jpg); 
+            background-size: cover;
+            background-position: center;
         }
         header {
-            background-color: 	#000000;
-            color: #fff;                         
-            padding: 1em 0;                       	
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ff00009a;                         
+            padding: 1em 0;                       
             text-align: center;
         }
         nav ul {
@@ -28,66 +30,85 @@
             margin: 0 15px;
         }
         nav ul li a {
-            color: #fff;
+            color: #ffffff9a;
             text-decoration: none;
         }
-        .container {
-            width: 80%;
-            margin: 0 auto;
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .search-container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+        .search-container button {
+            padding: 10px 15px;
+            background-color: #e67e22;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .search-container button:hover {
+            background-color: #d35400;
         }
         .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-}
-.product-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 10px;
-    padding: 20px;
-    width: 300px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.product-card img {
-    max-width: 100%;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-}
-
-.product-card h2 {
-    font-size: 1.5em;
-    margin: 10px 0;
-}
-
-.product-card p {
-    color: #666;
-}
-
-.product-card .price {
-    font-size: 1.2em;
-    color: #e67e22;
-    margin: 10px 0;
-}
-
-.product-card button {
-    background-color: #e67e22;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.product-card button:hover {
-    background-color: #d35400;
-}
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .product-card {
+            background-color: #000000;
+            border: 1px solid #00000050;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 10px;
+            width: 225px;
+            box-shadow: 0 4px 10px hwb(0 90% 7% / 0.575);
+            text-align: center;
+        }
+        .product-card img {
+            max-width: 100%;
+            border-bottom: 1px solid #ff000041;
+            padding-bottom: 10px;
+        }
+        .product-card h2 {
+            font-size: 1.5em;
+            margin: 10px 0;
+            color: #ffffffcc;
+        }
+        .product-card p {
+            color: #666;
+        }
+        .product-card .price {
+            font-size: 1.2em;
+            color: #e67e22;
+            margin: 10px 0;
+        }
+        .product-card button {
+            background-color: #e67e22;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .product-card button:hover {
+            background-color: #d35400;
+        }
         .contact {
             margin-top: 30px;
         }
+        .contact {
+    margin-top: 30px;
+    color: #ffffffe0; /* Cambia esto al color que desees */
+}
+
     </style>
 </head>
 <body>
@@ -97,44 +118,80 @@
             <ul>
                 <li><a href="#">Inicio</a></li>
                 <li><a href="ropa.html">Ropa</a></li>
-                <li><a href="#">Joyería</a></li>
-                <li><a href="#">Accesorios</a></li>
-                <li><a href="#">Destacados</a></li>
-                <li><a href="#">Carrito</a></li>
+                <li><a href="Joyeria.html">Joyería</a></li>
+                <li><a href="accesorios.html">Accesorios</a></li>
+                <li><a href="carrito.html">Carrito (<span id="itemCount">0</span>)</a></li>
                 <li><a href="#">Contacto</a></li>
             </ul>
-                <form action="">
-                    <input type="text" placeholder="Buscar...">
-                    <button type="submit">Buscar</button>
-                </form>
         </nav>
+        <div class="search-container">
+            <form action="">
+                <input type="text" placeholder="Buscar...">
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
     </header>
-    
+
+    <script>
+        let carrito = [];
+
+        function agregarAlCarrito(nombre, precio, imagen) {
+            carrito.push({ nombre: nombre, precio: precio, imagen: imagen });
+            guardarCarrito();
+            actualizarContador();
+            alert(nombre + ' ha sido agregado al carrito.');
+        }
+
+        function guardarCarrito() {
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+        }
+
+        function cargarCarrito() {
+            const carritoGuardado = localStorage.getItem('carrito');
+            if (carritoGuardado) {
+                carrito = JSON.parse(carritoGuardado);
+                actualizarContador();
+            }
+        }
+
+        function actualizarContador() {
+            const itemCount = document.getElementById('itemCount');
+            itemCount.textContent = carrito.length;
+        }
+
+        window.onload = cargarCarrito;
+    </script>
+
     <div class="container">
         <div class="product-card">
-            <img src="imagenes/conjunto azul.jpeg" alt="Ropa">
-            <h2>Conjunto amiri</h2>
-            <p>Conjunto Azul y blanco</p>
-            <p class="price">$100.000</p>
-            <button>Comprar</button>
+            <img src="imagenes/smoking.jpeg" alt="Ropa">
+            <h2>Ropa</h2>
+            <p>Prodras encontrar la ropa mas exclusiva</p>
+            <p class="price"></p>
+            <button onclick="location.href='ropa.html'">Comprar</button>
         </div>
         <div class="product-card">
-            <img src="imagenes/cadena de oro.jpeg" alt="Joyería">
-            <h2>Cadena de oro</h2>
-            <p>Cadena bañada en oro de 12 kilates.</p>
-            <p class="price">$2.000.000</p>
-            <button>Comprar</button>
+            <img src="imagenes/joya.jpeg" alt="Joyería">
+            <h2>Joyeria</h2>
+            <p>Prodras encontrar nuestras joyas mas exclusivas</p>
+            <p class="price"></p>
+            <button onclick="location.href='Joyeria.html'">Comprar</button>
+        </div>
+        <div class="product-card">
+            <img src="imagenes/cufflinks.jpg" alt="Joyería">
+            <h2>Accesorios</h2>
+            <p>Prodras encontrar nuestras accesorios</p>
+            <p class="price"></p>
+            <button onclick="location.href='accesorios.html'">Comprar</button>
         </div>
     </div>
-        </section>
-        
-        <section class="contact">
-            <h2>Contacto</h2>
-            <p>¿Tienes alguna pregunta? Contáctanos:</p>
-            <p>Email: <a href="mailto:info@tiendaderopa.com">info@tiendaderopa.com</a></p>
-        </section>
-    </div>
-    
+
+    <section class="contact">
+        <h2>Contacto</h2>
+        <p>¿Tienes alguna pregunta? Contáctanos:</p>
+        <p>Email: <a href="mailto:info@tiendaderopa.com">info@tiendaderopa.com</a></p>
+    </section>
+
     <footer>
         <p>&copy; 2024 Todos los derechos reservados. eCesde.net</p>
     </footer>

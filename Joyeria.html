@@ -16,7 +16,7 @@
 
         h1 {
             text-align: center;
-            color: #d1d1d1;
+            color: #d3d3d3;
             padding: 20px;
         }
 
@@ -25,15 +25,15 @@
             margin-bottom: 20px;
         }
 
-        .search-container input {
+        .search-container input[type="text"] {
             padding: 10px;
-            width: 200px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            width: 200px;
         }
 
         .search-container button {
-            padding: 10px;
+            padding: 10px 15px;
             background-color: #e67e22;
             color: #fff;
             border: none;
@@ -56,9 +56,9 @@
 
         .product {
             background-color: #000000;
-            border: 1px solid #000000;
+            border: 1px solid #141414;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.164);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 10px;
             text-align: center;
             width: 250px;
@@ -78,16 +78,23 @@
 
         .product p {
             margin: 10px 0;
-            color: #8f8f8f;
+            color: #555;
+        }
+
+        .product .price {
+            font-size: 1.2em;
+            color: #e67e22;
+            margin: 10px 0;
         }
 
         .product button {
             background-color: #e67e22;
             color: #fff;
             border: none;
-            padding: 10px 15px;
+            padding: 10px 20px;
             cursor: pointer;
             border-radius: 5px;
+            margin-top: 10px;
         }
 
         .product button:hover {
@@ -96,41 +103,40 @@
     </style>
 </head>
 <body>
-    <h1>Ropa Alto Estilo</h1>
-
+    <h1>Joyería Exclusiva</h1>
     <div class="search-container">
         <form action="">
             <input type="text" placeholder="Buscar...">
             <button type="submit">Buscar</button>
         </form>
     </div>
-
     <section class="product-gallery">
         <article class="product">
-            <img src="imagenes/traje informal.jpg" alt="Traje informal">
-            <p>Traje informal</p>
-            <p>Precio: $1.200.000</p>
-            <button onclick="agregarAlCarrito('Traje informal', 1200000, 'imagenes/traje informal.jpg')">Comprar</button>
+            <img src="imagenes/Pulsera Rústica.jpeg">
+            <p>Pulsera Rústica 18k</p>
+            <p class="price">1.900.000</p>
+            <button onclick="agregarAlCarrito('Pulsera Rústica 18k', 1900000)">Comprar</button>
         </article>
         <article class="product">
-            <img src="imagenes/conjunto old money.jpg" alt="Conjunto Old Money">
-            <p>Conjunto Old Money</p>
-            <p>Precio: $900.000</p>
-            <button onclick="agregarAlCarrito('Conjunto Old Money', 900000, 'imagenes/conjunto old money.jpg')">Comprar</button>
+            <img src="imagenes/cubana.jpeg">
+            <p>Cubana con Dije de Virgen</p>
+            <p class="price">7.500.000</p>
+            <button onclick="agregarAlCarrito('Cubana con Dije de Virgen', 7500000)">Comprar</button>
         </article>
         <article class="product">
-            <img src="imagenes/chaqueta pimpan.jpg" alt="chaqueta pinpan">
-            <p>chaqueta pinpan</p>
-            <p>Precio: $400.000</p>
-            <button onclick="agregarAlCarrito('chaqueta pinpan', 400000, 'imagenes/chaqueta pimpan.jpg')">Comprar</button>
+            <img src="imagenes/cadena negra.jpeg">
+            <p>Cadena 18k Diamantes Negros</p>
+            <p class="price">9.000.000</p>
+            <button onclick="agregarAlCarrito('Cadena 18k Diamantes Negros', 9000000)">Comprar</button>
         </article>
+        
     </section>
 
     <script>
         let carrito = [];
 
-        function agregarAlCarrito(nombre, precio, imagen) {
-            carrito.push({ nombre: nombre, precio: precio, imagen: imagen });
+        function agregarAlCarrito(nombre, precio) {
+            carrito.push({ nombre: nombre, precio: precio });
             guardarCarrito();
             alert(nombre + ' ha sido agregado al carrito.');
         }
